@@ -145,7 +145,6 @@ struct DownloadObjectArgs : public ObjectReadArgs {
 
 struct GetObjectArgs : public ObjectConditionalReadArgs {
   http::DataFunction datafunc;
-  http::ProgressFunction progressfunc;
   void *userdata = NULL;
 
   error::Error Validate();
