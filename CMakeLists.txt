@@ -16,7 +16,7 @@
 project(miniocpp)
 
 cmake_minimum_required(VERSION 3.10)
-
+# include(toolchain.cmake)
 macro(set_globals)
   set(CMAKE_BUILD_TYPE_INIT Release)
   set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
@@ -74,6 +74,10 @@ IF(OPENSSL_FOUND)
 ELSE(OPENSSL_FOUND)
   MESSAGE(FATAL_ERROR "Could not find the OpenSSL library and development files.")
 ENDIF(OPENSSL_FOUND)
+
+if(CMAKE_CXX_COMPILER_VERSION VERSION_LESS 9.0)
+	list(APPEND requiredlibs stdc++fs)
+endif()
 
 message(STATUS "Found required libs: ${requiredlibs}")
 
