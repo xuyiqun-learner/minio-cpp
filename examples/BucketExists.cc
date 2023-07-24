@@ -25,7 +25,7 @@ int main(int argc, char* argv[]) {
 
   // Create S3 client.
   minio::s3::Client client(base_url, &provider);
-
+  client.Debug(true);
   // Create bucket exists arguments.
   minio::s3::BucketExistsArgs args;
   args.bucket = "my-bucket";
