@@ -42,7 +42,7 @@ class BaseClient {
   bool ignore_cert_check_ = false;
   std::string ssl_cert_file_;
   std::string user_agent_ = DEFAULT_USER_AGENT;
-  double upload_speed = 0;
+  double uploading_speed = 0;
   double uploaded_size = 0;
   long file_size = 0;
 

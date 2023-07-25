@@ -189,12 +189,12 @@ struct Request {
   }
 
   int ProgressCallback(double dltotal, double dlnow, double ultotal, double ulnow);
-  double GetUploadSpeed() { return upload_speed; }
+  double GetUploadingSpeed() { return uploading_speed; }
   double GetUploadedSize() { return uploaded_size; }
 
  private:
   double uploaded_size = 0;
-  double upload_speed = 0;
+  double uploading_speed = 0;
 
   Response execute();
 };  // struct Request
@@ -224,7 +224,7 @@ struct Response {
  private:
   std::string response_;
   bool continue100_ = false;
-  bool status_code_read_ = false;
+  bool status_code_read_ = false; 
   bool headers_read_ = false;
 
   error::Error ReadStatusCode();

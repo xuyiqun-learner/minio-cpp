@@ -108,8 +108,8 @@ class Client : public BaseClient {
   PutObjectResponse PutObject(PutObjectArgs args);
   UploadObjectResponse UploadObject(UploadObjectArgs args);
   RemoveObjectsResult RemoveObjects(RemoveObjectsArgs args);
-  int GetUploadProgress();
-  double GetUploadSpeed() { return upload_speed; }
+  int GetUploadingProgress();
+  double GetUploadingSpeed();
 };  // class Client
 }  // namespace s3
 }  // namespace minio

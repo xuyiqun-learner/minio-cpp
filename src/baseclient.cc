@@ -176,8 +176,12 @@ minio::s3::Response minio::s3::BaseClient::execute(Request& req) {
   http::Request request = req.ToHttpRequest(provider_);
   request.debug = debug_;
   http::Response response = request.Execute();
-  upload_speed = request.GetUploadSpeed();
-  uploaded_size = request.GetUploadedSize();
+  uploading_speed = request.GetUploadingSpeed();
+  uploaded_size += request.GetUploadedSize();
+  // std::cout << "execute()->uploaded_size: " << (long)uploaded_size << std::endl;
+  // std::cout << "execute()->request.GetUploadedSize(): " << request.GetUploadedSize() << std::endl;
+  // std::cout << "execute()->upload_speed: " << (long)upload_speed / 1024 << "kb/s" << std::endl;
+  // std::cout << "execute()->request.GetUploadingSpeed(): " << request.GetUploadingSpeed() << std::endl;
   if (response) {
     Response resp;
     resp.status_code = response.status_code;

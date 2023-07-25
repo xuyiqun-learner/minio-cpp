@@ -270,7 +270,7 @@ minio::http::Response minio::http::Request::execute() {
     }
   }
 
-  curlpp::infos::SpeedUpload::get(request, upload_speed);
+  curlpp::infos::SpeedUpload::get(request, uploading_speed);
   
   return response;
 }
@@ -293,6 +293,7 @@ int minio::http::Request::ProgressCallback(double dltotal, double dlnow, double 
   int ulPos = (int) ((ulnow/ultotal)*100);
   if (ulPos == 100) {
     uploaded_size = ultotal;
+    // std::cout << "uploaded_size: " << uploaded_size << std::endl;
   }
   return CURL_PROGRESSFUNC_CONTINUE;
 }

@@ -668,6 +668,8 @@ minio::s3::UploadObjectResponse minio::s3::Client::UploadObject(
     UploadObjectArgs args) {
   if (error::Error err = args.Validate()) return err;
   file_size = args.object_size;
+  // std::cout << "minio::s3::Client::UploadObject()->args.object_size: " << args.object_size << std::endl;
+  // std::cout << "minio::s3::Client::UploadObject()->file_size: " << file_size << std::endl;
 
   std::ifstream file;
   file.exceptions(std::ifstream::failbit | std::ifstream::badbit);
@@ -703,12 +705,19 @@ minio::s3::RemoveObjectsResult minio::s3::Client::RemoveObjects(
   return RemoveObjectsResult(this, args);
 }
 
-int minio::s3::Client::GetUploadProgress() {
-  static double current_size = 0;
+int minio::s3::Client::GetUploadingProgress() {
   int progress_value = 0;
+  // std::cout << "file_size: " << file_size << std::endl;
   if (file_size > 0) {
-    current_size += uploaded_size;
-    progress_value = static_cast<int>((current_size / file_size)*100);
+    progress_value = static_cast<int>((uploaded_size * 100) / file_size);
   }
   return progress_value;
+}
+
+double minio::s3::Client::GetUploadingSpeed()
+{
+  if (uploading_speed < 0) {
+    return 0;
+  }
+  return uploading_speed;
 }
