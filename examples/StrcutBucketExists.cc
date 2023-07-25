@@ -54,17 +54,17 @@ struct UploadToCloud {
   void Upload() {
     minio::s3::UploadObjectArgs args;
     args.bucket = "athena";
-    args.object = "wps-office_11.1.0.11698_amd64.deb";
-    args.filename = "/home/xuyq/Downloads/" + args.object;
+    args.object = "4_4_system_update_rs485.tar.bz2";
+    args.filename = "/home/nvidia/Downloads/" + args.object;
 
     minio::s3::UploadObjectResponse resp = client.UploadObject(args);
 
     // Handle response.
     if (resp) {
-      std::cout << "wps-office_11.1.0.11698_amd64.deb is successfully uploaded to autonomous"
+      std::cout << "4_4_system_update_rs485.tar.bz2 is successfully uploaded to autonomous"
                 << std::endl;
     } else {
-      std::cout << "unable to upload wps-office_11.1.0.11698_amd64.deb; " << resp.Error().String()
+      std::cout << "unable to upload 4_4_system_update_rs485.tar.bz2; " << resp.Error().String()
                 << std::endl;
     }
   }
@@ -73,8 +73,17 @@ void PrintUploadProgress(bool& run_flag)
 {
   while (run_flag)
   {
-    std::this_thread::sleep_for(std::chrono::seconds(5));
-    std::cout << "PrintUploadProgress->upload progress: " << client.GetUploadProgress() << "%" << std::endl;
+    std::this_thread::sleep_for(std::chrono::seconds(1));
+    std::cout << "PrintUploadProgress->upload progress: " << client.GetUploadingProgress() << "%" << std::endl;
+  }
+}
+
+void printUploadSpeed(bool& run_flag)
+{
+  while (run_flag) 
+  {
+    std::this_thread::sleep_for(std::chrono::seconds(1));
+    std::cout << "printUploadSpeed->upload speed: " << ((long)client.GetUploadingSpeed() / 1000000) / 125 << "KB/s" << std::endl;
   }
 }
 
@@ -96,11 +105,13 @@ int main(int argc, char *argv[]) {
   bool run_flag = true;
   if (upload_to_cloud.Exist())
   {
-    std::thread t1(&UploadToCloud::PrintUploadProgress, upload_to_cloud, std::ref(run_flag));
+    std::thread t1(&UploadToCloud::PrintUploadProgress, &upload_to_cloud, std::ref(run_flag));
+    std::thread t2(&UploadToCloud::printUploadSpeed, &upload_to_cloud, std::ref(run_flag));
     // upload_to_cloud.GetProgress(run_flag);
     upload_to_cloud.Upload();
     run_flag = false;
     t1.join();
+    t2.join();
   }
     
   return 0;

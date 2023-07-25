@@ -9,9 +9,6 @@ TARGET_LINK_LIBRARIES(RemoveBucket miniocpp ${S3_LIBS})
 ADD_EXECUTABLE(BucketExists BucketExists.cc)
 TARGET_LINK_LIBRARIES(BucketExists miniocpp ${S3_LIBS})
 
-ADD_EXECUTABLE(StrcutBucketExists StrcutBucketExists.cc)
-TARGET_LINK_LIBRARIES(StrcutBucketExists miniocpp ${S3_LIBS})
-
 ADD_EXECUTABLE(ListBuckets ListBuckets.cc)
 TARGET_LINK_LIBRARIES(ListBuckets miniocpp ${S3_LIBS})
 
@@ -151,4 +148,7 @@ ADD_EXECUTABLE(GetPresignedPostFormData GetPresignedPostFormData.cc)
 TARGET_LINK_LIBRARIES(GetPresignedPostFormData miniocpp ${S3_LIBS})
 
 ADD_EXECUTABLE(GetObjectUploadSpeedAndProgress GetObjectUploadSpeedAndProgress.cc)
-TARGET_LINK_LIBRARIES(GetObjectUploadSpeedAndProgress miniocpp ${S3_LIBS} pthread)
+TARGET_LINK_LIBRARIES(GetObjectUploadSpeedAndProgress miniocpp ${S3_LIBS})
+
+ADD_EXECUTABLE(StrcutBucketExists StrcutBucketExists.cc)
+TARGET_LINK_LIBRARIES(StrcutBucketExists miniocpp ${S3_LIBS})
