@@ -16,7 +16,7 @@
 project(miniocpp)
 
 cmake_minimum_required(VERSION 3.10)
-# include(toolchain.cmake)
+include(toolchain.cmake)
 macro(set_globals)
   set(CMAKE_BUILD_TYPE_INIT Release)
   set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
